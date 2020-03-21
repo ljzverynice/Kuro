@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            padding: 0%;
+            margin: 0%;
+        }
+        a{display: inline-block;}
+        html, body{
+            background:#f2f2f2;
+        }
+
+        .calendar{
+            margin:0 auto;
+            width:90vw;
+            height:35vh;
+            background:rgba(225,225,225,0.3);
+            border-radius: 5vh;
+        }
+        .title{
+            height:8vh;
+            border-bottom: 0.5vw solid rgba(196,196,196,0.7);
+            position: relative;
+            text-align: center;
+        }
+        #calendar-title{
+            font-size: 3vh;
+            width: 70vw;
+            margin: 0 auto;
+            text-transform: uppercase;
+            padding: 1vh 0 0 0;
+        }
+        #calendar-year{
+            margin: 0 auto;
+            font-size: 2vh;
+            width: 70vw;
+        }
+        .body-list ul{
+            font-size: 2vh;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            margin-left:3vw;
+        }  
+        .body-list ul li{
+            list-style: none;
+            display: block;
+            width:12vw;
+            float: left;
+            height: 4vh;
+            line-height:4vh;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 2vh;
+        }
+        .green{
+            color:#6ac13c;
+        }
+        .lightgrey{
+	        color:#a8a8a8;
+        }   
+        .darkgrey{
+	        color:#565656;
+        }
+        .greenbox{
+            background-color: springgreen;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="calendar">
+        <div class="title">
+            <h1 class="green" id="calendar-title">Month</h1>
+            <h2 class="green" id="calendar-year">Year</h2>
+        </div>
+        <div class="body">
+            <div class="lightgrey body-list">
+                <ul>
+                    <li>SUN</li>
+                    <li>MON</li>
+                    <li>TUE</li>
+                    <li>WED</li>
+                    <li>THU</li>
+                    <li>FRI</li>
+                    <li>SAT</li>
+                    
+                </ul>
+            </div>
+            <div class="darkgrey body-list">
+                <ul id="days">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function getCalendar(){
+        var month_olypic = [31,29,31,30,31,30,31,31,30,31,30,31];
+        var month_normal = [31,28,31,30,31,30,31,31,30,31,30,31];
+        var month_name =["January","Febrary","March","April","May","June","July","Auguest","September","October","November","December"]
+        var holder = document.getElementById("days");
+        var ctitle = document.getElementById("calendar-title");
+        var cyear = document.getElementById("calendar-year");
+        var my_date = new Date();
+        var my_year = my_date.getFullYear();
+        var my_month = my_date.getMonth(); 
+        var my_day = my_date.getDate();
+        function dayStart(month,year){
+            var tmpDate = new Date(year, month, 1);
+            return (tmpDate.getDay());
+        }
+        function daysMonth(month, year){
+            var tmp1 = year % 4;
+            var tmp2 = year % 100;
+            var tmp3 = year % 400;
+            if((tmp1 == 0 && tmp2 != 0) || (tmp3 == 0)){
+                return (month_olypic[month]);
+            }else{
+                return (month_normal[month]);
+            }
+        }
+        function refreshDate(){
+            var str = "";
+            var totalDay = daysMonth(my_month,my_year);
+            var firstDay = dayStart(my_month, my_year);
+            for(var i = 0; i < firstDay; i++){
+                str += "<li>"+"</li>";
+            }
+            var myclass;
+            for(var i = 1; i <= totalDay; i++){
+                if((my_year < my_date.getFullYear())||(my_year == my_date.getFullYear() && my_month < my_date.getMonth()) || (my_year == my_date.getFullYear() && my_month == my_date.getMonth() && i < my_day)){
+                    myclass = " class='lightgrey'";
+                }else if(my_year == my_date.getFullYear() && my_month == my_date.getMonth() && i == my_day){
+                    myclass = "class = 'green greenbox'";
+                }else{
+                    myclass = "class = 'darkgrey'";
+                }
+                str += "<li "+myclass+">"+i+"</li>";
+            }
+            holder.innerHTML = str;
+            ctitle.innerHTML = month_name[my_month];
+            cyear.innerHTML = my_year;
+        }
+        refreshDate();
+    }
+    </script>
+</body>
+</html>

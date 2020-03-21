@@ -1,0 +1,185 @@
+<html>
+<head>
+<meta charset = 'utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style type="text/css">
+*{margin:0;padding:0;font-size: 14px;box-sizing: border-box;font-family: "Microsoft soft";user-select: none;}
+a{text-decoration: none;display: block;}
+button{display: block;}
+ul{list-style: none;}
+input{display:inline-block;}
+body{
+    background-position: center;
+    background-size: cover;
+}
+@font-face {
+    font-family:kuro;
+    src:url("source/kuro.ttf");
+    
+}
+#enter{
+    width:100%;
+    height: 100%;
+    overflow:auto;
+    position: relative;
+}
+#enter>div{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position:top center;
+}
+#enter>.enter{
+    position: fixed;
+    width: 45vw;
+    height:8vh;
+    left:0;
+    right:0;
+    margin: auto;
+    border-radius: 3vh;
+    text-align: center;
+    line-height: 8vh;
+    font-family: kuro;
+    font-size: 3vh;
+    bottom: 10vh;
+    color: white;
+    background-color:rgba(226, 224, 224, 0.493);
+    z-index: 250;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+#start{
+    display: none;
+    height:60vh;
+    width:80vw;
+    margin:15vh auto;
+    background-color: rgba(190, 190, 190, 0.3);
+    border-radius: 10vw;
+    padding:6vh 0;
+    text-align: center;
+}
+#start>.cong{
+    font-size:2.5vh;
+    font-family: kuro;
+    color:rgb(8, 12, 31);
+    margin-bottom:5vh ;
+}
+#start>.regist{
+    width: 55vw;
+    height:8vh;
+    border-radius: 2.5vh;
+    background-color:rgba(3, 0, 39, 0.25);
+    margin: 2vh auto;
+    color: white;
+    font-size: 2.5vh;
+    text-align: center;
+    line-height: 8vh;
+    font-weight:500;
+}
+#start>.login{
+    width: 55vw;
+    height:8vh;
+    border-radius: 2.5vh;
+    background-color:rgba(255, 255, 255, 0.55);
+    margin: 2vh auto;
+    color:rgba(3, 0, 39, 0.4);
+    font-size: 2.5vh;
+    text-align: center;
+    line-height: 8vh;
+    font-weight:600;
+}
+a:active{
+    transform: scale(0.97);
+}
+#start>.tips{
+    font-size:4vw;
+    color: rgba(3, 0, 39,0.4);
+    text-align: center;
+}
+</style>
+</head>
+<body onload="enter()">
+<div id="enter">
+    <div name="img1"  style="background-image: url(source/导入1.png);"></div>
+    <div name="img2" style="left: 100%;background-image: url(source/导入2.png);"></div>
+    <a class="enter" onclick="getIn()">点击进入</a>
+</div>
+<div id='start'>
+    <div class='cong'>
+    我们遇到什么困难</br>
+    也不要怕</br>
+    微笑着面对他</br>
+    克服恐惧的最好办法</br>
+    就是面对恐惧</br>
+    加油</br>
+    奥里给</br>
+    </div>
+    <a class='regist' onclick="turnTo('regist')" >记录心情</a>
+    <a class='login' onclick="turnTo('login')" >我的帐号</a>
+    <div class="tips">登陆后可在多个设备同步你的记录</div>
+</div>
+<script src="func.js">
+</script>
+<script>
+function enter(){
+    if(!localStorage.getItem("time")){
+    localStorage.setItem("time",1);
+    let enter=document.querySelector(`#enter`);
+    let img1=document.querySelector("[name='img1']");
+    let img2=document.querySelector("[name='img2']");
+    let enterbutton=document.querySelector(".enter");
+    enter.addEventListener("touchstart",touchstart,false)
+    enter.addEventListener("touchmove",touchmove,false)
+    enter.addEventListener("touchend",touchend,false)
+    let startX=0;
+    let X=0;
+    function touchstart(e){
+        startX=enter.scrollLeft;
+    }
+    function touchmove(e){
+
+    }
+    function touchend(e){
+        X=enter.scrollLeft-startX;
+        if(X>0){//向左滑
+            if(startX<(enter.offsetWidth-5)){//第一张
+                if(Math.abs(X)<enter.offsetWidth/4){
+                    enter.scrollBy({   
+                    top: 0,
+                    left:-X,   
+                    behavior: "smooth" 
+                });
+                }
+                else{enter.scrollBy({   
+                    top: 0,
+                    left:enter.offsetWidth-X,   
+                    behavior: "smooth" 
+                    });
+                    enterbutton.style.opacity="1";
+                }
+            }
+        }
+        if(X<0){//向右滑
+            if(startX>=(enter.offsetWidth-5)){//第二张
+                if(Math.abs(X)<enter.offsetWidth/4){
+                    enter.scrollBy({   
+                    top: 0,
+                    left:-X,   
+                    behavior: "smooth" 
+                });
+                }
+                else{enter.scrollBy({   
+                    top: 0,
+                    left:-X-enter.offsetWidth,   
+                    behavior: "smooth" 
+                });}
+            }
+        }
+    }
+    }
+    else{getIn();}    
+}
+</script>
+</body>
+</html>

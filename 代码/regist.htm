@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta charset = 'utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style type="text/css">
+*{margin:0;padding:0;font-size: 14px;box-sizing: border-box;user-select: none;}
+a{text-decoration: none;display: block;}
+button{display: block;}
+ul{list-style: none;}
+body{overflow: hidden;}
+input{display:inline-block;}
+@font-face {
+    font-family:kuro;
+    src:url("source/kuro.ttf");
+}
+#regist{
+    display:block;
+    width: 100%;
+    height:100%;
+    background-image: url(source/背景2.png);
+    background-position:top center;
+    background-size: cover;
+}
+#regist>.header{
+    width: 100%;
+    height:10vh;
+}
+.header>a{
+    height: 100%;
+    width: 10vh;
+    text-align: center;
+    line-height: 10vh;
+    font-size: 3vh;
+    color: darkgrey;
+}
+.header>a:active{
+    color:grey;
+}
+#regist>.nameset{
+    width: 80vw;
+    height:70vh;
+    margin: 5vh auto;
+    padding-top: 5vh;
+    text-align: center;
+    border-radius:5vw ;
+    background-color: rgba(225, 225, 225, 0.3);
+}
+.nameset>.title{
+    width: 70vw;
+    height:8vh;
+    margin: 0 auto;
+    font-size:4vh ; 
+    color:white;
+    text-align: left;
+    line-height: 8vh;
+}
+.nameset input{
+    outline-style: none;
+    width: 70vw;
+    height:8vh;
+    padding:0 2vh;
+    margin:3vw auto;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 1vh;
+    font-size:2vh ;
+}
+.nameset .tip1{
+    color:rgba(225, 225, 225, 0.3);
+    font-weight: bold;
+    font-size:2vh;
+}
+.nameset .submit{
+    width: 40vw;
+    height:8vh;
+    margin:3vw auto;
+    border-radius: 5vw;
+    background-color: rgba(167, 167, 167, 0.3);
+    text-align: center;
+    color: white;
+    line-height: 8vh;
+    font-size: 3vh;
+}
+.nameset>a:active{
+    transform: scale(0.97);
+}
+</style>
+</head>
+<body>
+    <div id="regist">
+        <div class="header">
+            <a class="back" onclick="turnTo('start')">
+            <
+            </a>
+        </div>
+        <div class="nameset">
+            <div class="title">注册<small style="font-size: 2vh;margin-left: 2vh;">regist</small></div>
+            <form>
+            <input type="number" name="phonenum" placeholder="11位手机号" maxlength="11"><br/>
+            <input type="text" name="nickname" placeholder="昵称"><br/>
+            <input type="password" name="password1" placeholder="第一次输入密码" minlength="6" maxlength="16"><br/>
+            <input type="password" name="password2" placeholder="第二次输入密码" minlength="6" maxlength="16"><br/>
+            <div class="tip1"></div>
+            </form>
+            <a class="submit" onclick="regist()">写好了</a>
+        </div>
+    </div>
+<script src="func.js">
+</script>
+</body>
+</html>

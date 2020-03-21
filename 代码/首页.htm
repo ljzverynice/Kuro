@@ -1,0 +1,351 @@
+<html>
+<head>
+<meta charset = 'utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<style type="text/css">
+*{margin:0;padding:0;font-size: 14px;box-sizing: border-box;}
+a{text-decoration: none;display: block;}
+button{display: block;}
+ul{list-style: none;}
+body{overflow: hidden;}
+input{display:inline-block;}
+@font-face {
+    font-family:kuro;
+    src:url("source/kuro.ttf");
+}
+#enter{
+    display:block;
+    background-image:url(source/lyf.jpg);
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: top center;
+    position: absolute;
+}
+#start{
+    height: 100%;
+    width: 100%;
+    display:block;
+}
+#start>.image{
+    background-image: url(source/lyf.jpg);
+    background-size: cover;
+    background-position: center;
+    margin:auto;
+    height:40%;
+    width:80%;
+}
+#start>.cong{
+    text-align: center;
+    margin:20px auto;
+}
+#start>.regist{
+    font-size: 20px;
+    color: black;
+    margin: 20px auto;
+    width: 40%;
+    height: 50px;
+    background-color: brown;
+    text-align: center;
+    line-height: 50px;
+    border-radius:40px;
+}
+#start>.login{
+    font-size: 20px;
+    margin: 20px auto;
+    width: 40%;
+    height: 50px;
+    background-color:cornsilk;
+    text-align: center;
+    line-height: 50px;
+    border-radius:40px;
+}
+#regist{
+    display:none;
+    width: 100%;
+    height:100%;
+}
+#regist>.header{
+    width: 100%;
+    height:50px;
+    padding:0 10px;
+    font-size: 60px;
+    background-color: blanchedalmond;
+}
+#regist>.header>.back{
+    line-height:50px;
+    width: 80px;
+}
+#regist>.nameset{
+    margin:40px auto;
+    text-align: center;
+}
+.nameset input{
+    margin:10px auto;
+    height: 40px;
+    border-bottom: black solid 2px;
+    color: gray;
+}
+.nameset .tip1{
+    font-size:12px;
+    color:white;
+}
+.nameset>.submit{
+    width: 30vw;
+    height:5vh;
+    background-color: coral;
+    margin: 10vh auto;
+    border-radius: 2vh;
+    line-height: 5vh;
+    text-align: center;
+}
+#login{
+    display:none;
+    width: 100%;
+    height:100%;
+}
+#login>form{
+    margin:10vh auto;
+    text-align: center;
+}
+#login>form>input{
+    margin:10px auto;
+    height: 40px;
+    border-bottom: black solid 2px;
+    color: gray;
+}
+#login>form>.tip2{
+    font-size:12px;
+    color:white;
+}
+#login input[type="checkbox"]{
+    width: 4vw;
+    height: 4vw;
+}
+#login label{
+    font-size: 12px;
+    color: orangered;
+}
+#login>.submit{
+    margin:auto;
+    width:20vw;
+    height:5vh;
+    font-size: 14px;
+    background-color: darkred;
+    border-radius: 2vh;
+    text-align: center;
+    line-height: 5vh;
+}
+#main{
+    display:none;
+    width: 100%;
+    height:100%;
+}
+#main>.quote{
+    display: flex;
+    flex-direction: column;
+    font-family: kuro;
+    margin: 10vh 10vw;
+    padding: 2vh 2vw;
+    background-color: powderblue;
+}
+.quote>.sentence{
+    font-size: 18px;
+    text-align:left;
+}
+.quote>.from{
+    font-size: 14px;
+    color: rgb(184, 184, 184);
+    text-align: right;
+}
+#main>.func{
+    position: absolute;
+    bottom: 10vh;
+    margin:auto 10vw;
+    height:20vh;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 1vw;
+    justify-items: center;
+    align-items:flex-end;
+}
+.func>a{
+    background-color: springgreen;
+    width: 25vw;
+    height:25vw;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 25vw;
+    font-size: 20px;
+}
+.func>a[class='write']{
+    align-self: start;
+}
+#write{
+    width: 100%;
+    height:100%;
+    display:none;
+}
+#write>.header{
+    width: 100%;
+    height: 5vh;
+    background-color:darkgrey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#write>.header>.back{
+    height: 100%;
+    width: 15vw;
+    padding: 0 10px;
+    font-size:30px;
+    text-align: center;
+    line-height: 5vh;
+}
+#write>.header>.state{
+    height: 100%;
+    width:20vw;
+    background-color:whitesmoke;
+    border: tomato solid 2px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 5vh;
+    border-radius: 5vw;
+}
+#write>.header>.save{
+    height: 100%;
+    width: 15vw;
+    padding: 0 10px;
+    font-size:20px;
+    text-align: center;
+    line-height: 5vh;
+    color: tomato;
+}
+#write .records{
+    margin-left: 10vw;
+    width: 32vw;
+    height: 4vh;
+    background-color: teal;
+    border-radius: 3vw;
+    line-height: 4vh;
+    padding-left: 2vw;
+}
+#write .images{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 1vw;
+    margin:2vh 10vw;
+    height:20vh;
+}
+.images>img{
+    height: 20vh;
+}
+#write textarea{
+    margin:2vh 10vw;
+    width: 80vw;
+    height: 40vh;
+    border: #cccccc solid 2px;
+    border-radius: 10px;
+    text-indent: 2em;
+    padding:4vw;
+    outline: none;
+}
+#write>.footer{
+    width: 100%;
+    height:5vh;
+    position: fixed;
+    bottom: 0;
+    background-color: #cccccc;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+}
+#write>.footer>div{
+    text-align: center;
+    line-height: 5vh;
+    font-size: 20px;
+}
+</style>
+</head>
+<body onload="getPoem()">
+<div id="enter"></div>
+<div id='start'>
+    <div class='image'></div>
+    <a class='cong'>
+    我们遇到什么困难</br>
+    也不要怕</br>
+    微笑着面对他</br>
+    克服恐惧的最好办法</br>
+    就是面对恐惧</br>
+    加油</br>
+    奥里给</br>
+    </a>
+    <button class='regist' onclick="changeTo('start','regist')">记录心情</button>
+    <button class='login' onclick="changeTo('start','login')">我的帐号</button>
+    </div>
+<div id="regist">
+    <div class="header">
+        <a class="back" onclick="changeTo('regist','start')">
+        <
+        </a>
+    </div>
+    <div class="nameset">
+        <form>
+        手机号<input type="text" name="phonenum" value="11位手机号" maxlength="11"><br/>
+        昵称<input type="text" name="nickname" value="0-16个字符"><br/>
+        第一次输入密码<input type="password" name="password1"  minlength="6" maxlength="16"><br/>
+        第二次输入密码<input type="password" name="password2" minlength="6" maxlength="16"><br/>
+        <div class="tip1">该手机号已被注册！</div>
+        </form>
+        <div class="submit" onclick="regist()">写好了</div>
+    </div>
+</div>
+<div id="login">
+    <form>
+        帐号：<input type="text" name="account" value="11位手机号" maxlength="11"><br/>
+        密码：<input type="password" name="password" minlength="6" maxlength="16"><br/>
+        <div class="tip2">输入的帐号或密码不正确，请重新输入！</div>
+        <input type="checkbox" checked="checked"><label onclick="postAdmit()">我已查看并同意相关协议</label>
+    </form>
+    <div class="submit" onclick="login()">登录</div>
+</div>
+<div id="main">
+    <div class="quote">
+    <div class="sentence">
+        假如你不够快乐，</br>
+        也不要吧眉头深锁，</br>
+        人生本来短暂，</br>
+        为什么还要栽培苦涩。</br>
+    </div>
+    <div class="from">--汪国真《假如你不够快乐》</div>
+    </div>
+    <div class="func">
+        <a class="pullmsg" onclick="changeTo('main','pullmsg')">打捞</a>
+        <a class="write" onclick="changeTo('main','write')">记录</a>
+        <a class="me" onclick="changeTo('main','me')">我的</a>
+    </div>
+</div>
+<div id="write">
+    <div class="header">
+        <a class="back" onclick="changeTo('write','main')"><</a>
+        <div class="state">好心情</div>
+        <div class="save">保存</div>
+    </div>
+    <div class="content">
+        <div class="records">45s</div>
+        <div class="images">
+            <img src="source/lyf.jpg">
+            <img src="source/lyf.jpg">
+        </div>
+        <textarea name="type" cols="30" rows="10"></textarea>
+    </div>
+    <div class="footer">
+        <div class="postre" onclick="postre()">录音</div>
+        <div class="postimg" onclick="postimg()">键盘</div>
+        <div class="type" onclick="type()">图片</div>
+    </div>
+</div>
+<script type="text/javascript" defer>
+</script>
+</body>
+</html>

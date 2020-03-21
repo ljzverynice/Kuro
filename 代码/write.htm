@@ -1,0 +1,509 @@
+<html>
+<head>
+<meta charset = 'utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style type="text/css">
+*{margin:0;padding:0;font-size: 14px;box-sizing: border-box;user-select: none;}
+a{text-decoration: none;display: block;}
+a:active{transform: scale(0.97);}
+button{display: block;}
+ul{list-style: none;display: block;}
+li{display: inline-block;}
+input{display:inline-block;}
+@font-face {
+    font-family:kuro;
+    src:url("source/kuro.ttf");
+}
+body{
+    background-image: url(source/背景6.png);
+    background-size: cover;
+    background-position: top center;
+    transition: background-image 0.4s ease-in-out;
+}
+#write{
+    width: 100%;
+    height:100%;
+    display:block;
+}
+#write>.header{
+    width: 100%;
+    height: 10vh;
+    background-color:rgba(225,225,225,0.7);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 250;
+}
+#write>.alert{
+    width: 100%;
+    height: 10vh;
+    background-color:rgba(225,225,225,0.9);
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    top: -10vh;
+    z-index: 250;
+    text-align: center;
+    line-height: 10vh;
+    font-size: 2.5vh;
+    transition: transform 0.6s ease-in-out;
+}
+#write>.header>.back{
+    height: 100%;
+    width: 20vw;
+    padding: 0 5vw;
+    font-size:10vw;
+    text-align: center;
+    line-height: 10vh;
+    color: darkslategrey;
+}
+#write>.header>.state{
+    height:6vh;
+    width:30vw;
+    background-color:rgba(255,255,255,0.7);
+    text-align: center;
+    font-size: 2.5vh;
+    line-height: 6vh;
+    border-radius: 5vw;
+    align-self: center;
+}
+#write>.header>.save{
+    height: 10vh;
+    width: 20vw;
+    font-size:2.5vh;
+    font-weight: bold;
+    text-align: center;
+    line-height: 10vh;
+    color:darkslategrey;
+}
+#write .records{
+    width: 90vw;
+    margin: 3vh auto;
+    background-color: rgba(150,150,150,0.3);
+    border-radius: 3vh;
+    text-align: center;
+}
+.records>audio{
+    display: inline-block;
+    margin: 2vh auto;
+}
+#write .images{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 1.5vw;
+    row-gap: 1.5vw;
+    width: 90vw;
+    padding:6vw;
+    margin: 3vh auto 13vh;
+    background-color: rgba(150,150,150,0.3);
+    border-radius: 2vh;
+}
+.images>img{
+    height:25vw;
+    width: 25vw;
+    border-radius: 1vh;
+}
+#write textarea{
+    background-color: rgba(255,255,255,0.7);
+    margin:15vh 5vw 2vh;
+    width: 90vw;
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    text-indent: 1em;
+    padding:4vw;
+    outline: none;
+}
+#write>.footer{
+    width: 100%;
+    height:15vh;
+    position:fixed;
+    bottom:0;
+    background-color:rgba(255,255,255,0.7);
+    border-radius: 3vh 3vh 0 0;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+}
+#write>.footer>input{
+    display: none;
+}
+#write>.footer>label{
+    margin: 5vw auto;
+    width: 15vw;
+    height: 15vw;
+    background-position:top center;
+    background-size: cover;
+}
+label:active{
+    transform: scale(0.97);
+}
+.star{
+    width: 80vw;
+    height: 25vh;
+    background-color: rgba(196,196,196,0.5);
+    position:fixed;
+    left:0;
+    right:0;
+    bottom: 40vh;
+    margin: 0 auto;
+    border-radius: 3vh;
+    display: none;
+    z-index: 251;
+}
+.star>.lead{
+    font-size: 3vh;
+    text-align: center;
+    color: black;
+    height: 12vh;
+    padding: 3vh;
+}
+.star>ul{
+    margin:3vh auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+ul>li{
+    width: 10vw;
+    height:10vw;
+    background-image: url(source/star.svg);
+    background-position: center;
+    background-size: cover;
+}
+.cover{
+    width: 100%;
+    height: 300%;
+    z-index: 250;
+    display: none;
+    position: absolute;
+    top:0;
+}
+.edit{
+    position: fixed;
+    bottom: 15vh;
+    left: 0;
+    right:0;
+    margin:auto;
+    height:20vh;
+    width: 90vw;
+    display: none;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 1vw;
+    justify-items: center;
+    align-items:flex-end;
+    z-index: 251;
+}
+.edit>.outer{
+    width: 25vw;
+    height: 25vw;
+    border: rgba(255, 255, 255, 0.3) solid 1vw;
+    border-radius: 50%;
+    position: relative;
+}
+.outer>div{
+    width: 21vw;
+    height: 21vw;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    margin: auto;
+    background-color: rgba(196, 196, 196, 0.5);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 21vw;
+    color:black;
+    font-family: kuro;
+    font-size: 7vw;
+}
+.commit{
+    display:none;
+    width: 90vw;
+    height: 30vh;
+    margin: 20vh auto;
+}
+.commit>textarea{
+    background-color: rgba(255,255,255,0.7);
+    margin:2vh auto;
+    width: 90vw;
+    height: 20vh;
+    border: none;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    text-indent: 1em;
+    padding:4vw;
+    outline: none;
+}
+.commit>a{
+    width: 30vw;
+    height: 6vh;
+    margin: 3vh auto;
+    background-color: rgba(196, 196, 196, 0.5);
+    font-size: 2.5vh;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    line-height: 6vh;
+    border-radius: 2vh;
+
+}
+</style>
+</head>
+<body>
+    <div id="write">
+        <div class="header">
+            <a class="back" onclick="back('main')"><</a>
+            <a class="state" onclick="switchmood(this)">好心情</a>
+            <a class="save" onclick="save()">保存</a>
+        </div>
+        <div class="alert">该心情已漂流</div>
+        <div class="content">
+            <textarea name="type" cols="30" rows="10" placeholder="写下此刻想说的话吧" spellcheck="false"></textarea>
+            <div class="records">
+            </div>
+            <div class="images">
+            </div>
+        </div>
+        <div class="footer">
+            <input type="file" id="postre" onchange="postre()" accept="audio/*"></input>
+            <label for="postre" style="background-image: url(source/icon1.png);"></label>
+            <input type="file" id="type" onchange="type()"></input>
+            <label for="type" style="background-image: url(source/icon2.png);"></label>
+            <input type="file" id="postimg" onchange="postimg()"  accept="image/*"></input>
+            <label for="postimg" style="background-image: url(source/icon3.png);"></label>
+        </div>
+        <div class="star">
+            <div class="lead">该情绪的强烈程度为:<br/>
+            <small style="font-size: 2vh;">情绪越强烈，星级越高</small>
+            </div>
+            <ul>
+            <li class='num' onmouseup="mark(1)"></li>
+            <li class='num' onmouseup="mark(2)"></li>
+            <li class='num' onmouseup="mark(3)"></li>
+            <li class='num' onmouseup="mark(4)"></li>
+            <li class='num' onmouseup="mark(5)"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="edit">
+        <a class="outer"><div class="flow" onclick="flow()">漂流</div></a>
+        <a class="outer" style="align-self: flex-start;"><div class="smash" onclick="smash()">粉碎</div></a>
+        <a class="outer"><div class="forgive" onclick="forgive()">悦纳</div></a>
+    </div>
+    <div class="commit">
+        <textarea  cols="30" rows="10" placeholder="悦纳心情,改善心情" spellcheck="false"></textarea>
+        <a class="confirm" onclick='getcommit()'>确认</a>
+    </div>
+    <div class="cover"></div>
+    <div class="preload1" style="background-image: url(source/背景5.png);display: none;"></div>
+    <div class="preload2" style="background-image: url(source/背景6.png);display: none;"></div>
+<script src="func.js"></script>
+<script>
+var mood=0;
+var star=0;
+var skey=window.location.href.split("=")[1];
+var imgnum=0;
+var recordnum=0;
+var emid=0;
+var imgdata=new FormData();
+function back(newpage){
+    if(confirm("是否上传心情？")){
+        save();
+    }
+    else{turnTo(newpage)};
+}
+function switchmood(obj){
+    let text=document.querySelector("textarea").innerHTML;
+    let img=document.querySelector(".images>img");
+    let record=document.querySelector("audio");
+    let body=document.querySelector("body");
+    if(text||img||record){
+        alert("有内容未上传！无法切换！")
+    }
+    else{
+        if(!mood){
+        obj.innerHTML="坏心情";
+        obj.style.backgroundColor="rgba(196,196,196,0.7)";
+        body.style.backgroundImage="url(source/背景5.png)";
+        mood=1;
+        }
+        else{
+            obj.innerHTML="好心情";
+            mood=0;
+            obj.style.backgroundColor="rgba(256,256,256,0.7)";
+            body.style.backgroundImage="url(source/背景6.png)";
+        }
+    }
+}
+function postre(){
+    if(recordnum==0){
+    let record=document.querySelector("#postre");
+    let records=document.querySelector(".records");
+    let reader=new FileReader();
+    reader.readAsDataURL(record.files[0]);
+    reader.onload=function(){
+        let x = document.createElement("audio");
+        x.src=this.result;
+        x.controls="true";
+        records.appendChild(x);
+    }
+    recordnum++;
+    }
+    else{alert("你只能输入一条语音！");}
+}
+function postimg(){
+    let img=document.querySelector("#postimg");
+    let imgs=document.querySelector(".images");
+    data=new FormData()
+    data.append("postimg",img.files[0]);
+    imgdata.append(`${imgnum}`,img.files[0]);
+    let reader=new FileReader();
+    reader.readAsDataURL(img.files[0]);
+    reader.onload=function(){
+        let x = document.createElement("img");
+        x.src=this.result;
+        imgs.appendChild(x);
+        imgnum++;
+    }
+}
+function mark(n){
+    star=n;
+    let url="";
+    let objlist=document.querySelectorAll(".num");
+    if(mood==0){
+        url='source/star2.svg';
+    }
+    else{url='source/star3.svg';}
+    for(let i=1;i<=5;i++){
+        if(i<=n){
+            objlist[i-1].style.backgroundImage=`url(${url})`;
+        }
+        else{
+            objlist[i-1].style.backgroundImage="url(source/star.svg)";
+        }
+    }
+    submit();
+}
+function submit(){
+    let isimg=document.querySelector("img");
+    let isrecord=document.querySelector("audio");
+    let text=document.querySelector("textarea").value;
+    let textdata={
+        "stars":star,
+        "type":mood,
+        "content":recordnum,
+        "text":text,
+        "photoNum":imgnum
+    }
+    fetch(`http://39.97.228.101:8080/kuro/emotion?skey=${skey}`,
+    {
+        method:"POST",
+        body:JSON.stringify(textdata)
+    }
+    ).then(res => res.json()).then(function (response){
+        response=eval(response);
+        emid=response.data.id;
+        elsesubmit();
+        setTimeout(edit,600);
+    })
+    function elsesubmit(){
+        if(isrecord){
+            let record=document.querySelector("#postre");
+            let data=new FormData()
+            data.append("postre",record.files[0]);
+            let type=record.files[0].type.split("/")[1];
+            if(type){
+                let head={
+                    "Content-Type": "multipart/form-data;boundary=WebAppBoundary",
+                    "Content-Disposition": `form-data; name='file'; filename=${record.files[0].name}`
+                }
+                fetch(`http://39.97.228.101:8080/kuro/src/voice/${emid}?skey=${skey}&filetype=${type}`,{
+                method: "POST",
+                headers:head,
+                body:data
+                }).then(res => res.json()).then(function (response){
+                console.log(response);
+                    })
+                }
+        }
+        if(isimg){
+            let index=0;
+            console.log(imgdata);
+            for(each of imgdata){
+                let type=imgdata.get(`${index}`).type.split("/")[1];
+                let eachdata=new FormData();
+                eachdata.append(`postimg`,imgdata.get(`${index}`));
+            if(type){
+                let head={
+                    "Content-Type": "multipart/form-data;boundary=WebAppBoundary",
+                    "Content-Disposition": `form-data; name='file'; filename=${imgdata.get(`${index}`).name}`
+                }
+                fetch(`http://39.97.228.101:8080/kuro//src/photo/${emid}/${index+1}?skey=${skey}&filetype=${type}`,{
+                    method:"POST",
+                    headers:head,
+                    body:eachdata
+                }).then(res => res.json()).then(function (response){
+                console.log(response);index++;
+                    })
+            }
+            }
+        }
+    }
+}
+function save(){
+    let cover=document.querySelector(".cover");
+    let body=document.querySelector("body");
+    let mark=document.querySelector(".star");
+    mark.style.display="block";
+    body.style.overflow="hidden";
+    cover.style.display="block";
+}
+function edit (){
+    if(mood){
+        let edit=document.querySelector(".edit");
+        let star=document.querySelector(".star");
+        edit.style.display="grid";
+        star.style.display="none";
+    }
+    else{turnTo("happynotebook");}
+}
+function flow(){
+    let jump=document.querySelector('.alert');
+    jump.style.transform="translate(0,10vh)";
+    setTimeout(function (){turnTo("main");},700);
+}
+function smash(){
+    if(confirm("确定粉碎该情绪吗？")){
+        fetch(`http://39.97.228.101:8080/kuro/emotion/${emid}?skey=${skey}&type=delete`,{
+            method:"GET"
+            }).then(res => res.json()).then(function (response){
+            turnTo("main");
+                });
+    }
+}
+function forgive(){
+    let write=document.querySelector("#write");
+    let edit=document.querySelector(".edit");
+    let commit=document.querySelector(".commit");
+    let cover=document.querySelector(".cover");
+    cover.style.display="none";
+    commit.style.display="block";
+    edit.style.display="none";
+    write.style.display="none";
+}
+function getcommit(){
+    let words=document.querySelector(".commit>textarea").value;
+    let data={"accept":words};
+    fetch(`http://39.97.228.101:8080/kuro/emotion/${emid}?skey=${skey}&type=accept`,{
+        method:"POST",
+        body:JSON.stringify(data)
+    }).then(res => res.json()).then(function (response){
+            turnTo("main");
+                });
+}
+</script>
+</body>
+</html>
